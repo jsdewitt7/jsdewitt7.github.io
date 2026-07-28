@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jason DeWitt</title>
+<meta name="description" content="Jason DeWitt is a philosopher working on the metaphysics of science, causation, modality, and pragmatism.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F6F3;
+  --ink:#1B1E1C;
+  --muted:#5C625E;
+  --rule:#D6DAD3;
+  --accent:#33565B;
+  --measure:34rem;
+  --label-col:9rem;
+  --gap:2.75rem;
+}
+
+*{box-sizing:border-box;}
+
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Spectral",Georgia,"Times New Roman",serif;
+  font-weight:300;
+  font-size:1.0625rem;
+  line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+}
+
+p{margin:0 0 1.1em;max-width:var(--measure);}
+a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule);transition:border-color .18s ease,color .18s ease;}
+a:hover{border-bottom-color:var(--accent);color:var(--accent);}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+em,i{font-style:italic;}
+
+/* ---------- utility label type ---------- */
+.mono{
+  font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  font-size:.6875rem;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  font-weight:500;
+}
+
+/* ---------- shell ---------- */
+.wrap{
+  max-width:52rem;
+  margin:0 auto;
+  padding:0 1.75rem;
+}
+
+/* ---------- nav ---------- */
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.topbar .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1.25rem;min-height:3.25rem;
+}
+.topbar .sig{color:var(--muted);}
+.topbar nav{display:flex;gap:1.4rem;flex-wrap:wrap;}
+.topbar nav a{border-bottom:none;color:var(--muted);}
+.topbar nav a:hover{color:var(--accent);}
+
+/* ---------- masthead ---------- */
+.masthead{padding:5.5rem 0 3.5rem;border-bottom:1px solid var(--rule);}
+.masthead-inner{display:flex;gap:3rem;align-items:flex-start;justify-content:space-between;}
+.masthead h1{
+  font-size:clamp(2.5rem,6vw,3.6rem);
+  font-weight:600;line-height:1.02;letter-spacing:-.022em;
+  margin:0 0 1.5rem;
+}
+.bio{
+  font-size:1.1875rem;
+  line-height:1.6;
+  max-width:32rem;
+  margin:0 0 1.05em;
+}
+.bio:last-child{margin-bottom:0;}
+.portrait{flex:0 0 auto;width:12rem;}
+.portrait img{width:100%;height:auto;display:block;filter:saturate(.82) contrast(1.02);}
+
+/* ---------- sections: marginal apparatus ---------- */
+.section{
+  display:grid;
+  grid-template-columns:var(--label-col) minmax(0,1fr);
+  gap:var(--gap);
+  padding:4rem 0;
+  border-bottom:1px solid var(--rule);
+}
+.section:last-of-type{border-bottom:none;}
+.section > .label{color:var(--accent);padding-top:.42rem;}
+.section > .label span{position:sticky;top:5rem;display:block;}
+.section h2{
+  font-size:1.5rem;font-weight:600;letter-spacing:-.012em;
+  margin:0 0 1.4rem;
+}
+.section h3{
+  font-size:1.0625rem;font-weight:600;margin:2.4rem 0 1rem;
+}
+.section h3:first-of-type{margin-top:1.8rem;}
+
+/* ---------- entry list ---------- */
+.entries{list-style:none;margin:0;padding:0;}
+.entries li{
+  padding:1.05rem 0;
+  border-top:1px solid var(--rule);
+}
+.entries li:first-child{border-top:none;padding-top:.2rem;}
+.entry-head{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap;margin-bottom:.3rem;}
+.entry-title{font-size:1.0625rem;font-weight:400;}
+.status{color:var(--accent);white-space:nowrap;}
+.venue{color:var(--muted);font-style:italic;display:block;margin-bottom:.45rem;}
+.gloss{color:var(--muted);font-size:.9375rem;line-height:1.6;margin:0;max-width:var(--measure);}
+
+/* ---------- courses ---------- */
+.courses{list-style:none;margin:0 0 1.5rem;padding:0;}
+.courses li{padding:.62rem 0;border-top:1px solid var(--rule);}
+.courses li:first-child{border-top:none;}
+.course-name{display:block;}
+.terms{color:var(--muted);}
+
+.prepared{color:var(--muted);font-size:.9375rem;max-width:var(--measure);}
+
+/* ---------- docs ---------- */
+.docs{list-style:none;margin:0;padding:0;}
+.docs li{padding:.72rem 0;border-top:1px solid var(--rule);}
+.docs li:first-child{border-top:none;}
+.docs .note{color:var(--muted);display:block;font-size:.9375rem;}
+
+/* ---------- contact ---------- */
+.contact-grid{display:flex;gap:3.5rem;flex-wrap:wrap;}
+.contact-grid div{min-width:12rem;}
+.contact-grid .mono{display:block;color:var(--accent);margin-bottom:.55rem;}
+address{font-style:normal;color:var(--muted);line-height:1.62;}
+
+/* ---------- footer ---------- */
+footer{padding:2.5rem 0 3.5rem;color:var(--muted);border-top:1px solid var(--rule);}
+
+/* ---------- entrance ---------- */
+.rise{opacity:0;transform:translateY(10px);animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards;}
+.rise:nth-child(2){animation-delay:.07s;}
+@keyframes rise{to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){
+  .rise{animation:none;opacity:1;transform:none;}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:44rem){
+  :root{--gap:.9rem;}
+  .masthead{padding:3.25rem 0 2.5rem;}
+  .masthead-inner{flex-direction:column-reverse;gap:2rem;}
+  .portrait{width:8.5rem;}
+  .bio{font-size:1.125rem;}
+  .section{grid-template-columns:1fr;padding:3rem 0;}
+  .section > .label{padding-top:0;margin-bottom:.9rem;}
+  .section > .label span{position:static;}
+  .topbar nav{gap:1rem;}
+  .topbar .sig{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="mono sig">Jason DeWitt</span>
+    <nav class="mono">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#documents">Documents</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="rise">
+      <h1>Jason DeWitt</h1>
+      <p class="bio">I am a philosopher and senior lecturer in the Department of Philosophy at The Ohio State University. My research is in the metaphysics of science and pragmatism.</p>
+      <p class="bio">I am interested in how far a naturalistic metaphysics can be built from pragmatist starting points without giving up on realism, and in what becomes of deflationary and neopragmatist programs when they are asked to account for themselves.</p>
+    </div>
+    <div class="portrait rise">
+      <img src="files/portrait.jpg" alt="Jason DeWitt" width="720" height="960">
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="section wrap" id="about">
+  <div class="label mono"><span>About</span></div>
+  <div>
+    <h2>About</h2>
+    <p>I completed my PhD at Ohio State in 2025, after an MA at the University of Wisconsin–Milwaukee and a BA at the University of Tennessee, Knoxville.</p>
+    <p>My areas of specialization are philosophy of science, metaphysics, and pragmatism. I have also published or presented in epistemology, philosophy of language, and the history of analytic philosophy. Most of my teaching has been in philosophy of science, applied ethics, and logic.</p>
+    <p><a href="https://philpeople.org/profiles/jason-dewitt">PhilPeople profile</a> · <a href="https://blog.apaonline.org/2022/01/14/apa-member-interview-jason-dewitt/">APA member interview</a></p>
+  </div>
+</section>
+
+<section class="section wrap" id="research">
+  <div class="label mono"><span>Research</span></div>
+  <div>
+    <h2>Research</h2>
+    <p>My research develops a framework I call <em>pragmatist realism</em>. The driving question is how a naturalistic metaphysics of science ought to be built, and my answer joins pragmatist methodology to a qualified realism about scientific entities and relations.</p>
+    <p>This is meant as a third way between two familiar options. Traditional analytic metaphysics often carries excessive epistemological and metaphysical commitments. Neopragmatism, in deflating the representational pretensions of scientific discourse, can also deflate its objective aspirations. Pragmatist realism begins from the human perspective — from what our concepts do for creatures like us — without giving up on the world our sciences are about.</p>
+    <h3>Publications</h3>
+    <ul class="entries">
+      <li>
+        <div class="entry-head">
+          <span class="entry-title"><a href="https://doi.org/10.1017/psa.2026.10201">Pragmatist Realism about Causation</a></span>
+          <span class="status mono">Forthcoming</span>
+        </div>
+        <span class="venue">Philosophy of Science</span>
+        <p class="gloss">Perspectivalists hold that what causes are is tied essentially to human agency. I argue that the pragmatist insight behind that view — that our concept of causation is bound up with our lives as deliberating, intervening agents — does not support the perspectivalist conclusion, and I develop an alternative on which causes are identified through human concerns while the causal relation itself stays objective.</p>
+      </li>
+      <li>
+        <div class="entry-head">
+          <span class="entry-title"><a href="https://doi.org/10.1007/s11229-020-02985-6">Dogramaci&rsquo;s Deflationism about Rationality</a></span>
+          <span class="status mono">2021</span>
+        </div>
+        <span class="venue">Synthese 199, 4437&ndash;4455</span>
+        <p class="gloss">Sinan Dogramaci derives a deflationism about rationality from epistemic communism, the view that epistemic terms function to coordinate a community around shared inferential rules. I argue that different sets of rules do not equally support that coordinative function, so deflationism need not be accepted even by the communist.</p>
+      </li>
+    </ul>
+
+    <h3>Reviews</h3>
+    <ul class="entries">
+      <li>
+        <div class="entry-head">
+          <span class="entry-title"><a href="https://philpapers.org/rec/DEWMPR">Mark Povich, <em>Rules to Infinity</em></a></span>
+          <span class="status mono">2026</span>
+        </div>
+        <span class="venue">BJPS Review of Books</span>
+      </li>
+    </ul>
+
+    <h3>Under review</h3>
+    <ul class="entries">
+      <li>
+        <div class="entry-head">
+          <span class="entry-title">A Reflexivity Worry for Global Pragmatism</span>
+        </div>
+        <p class="gloss">Global pragmatism holds that any discourse can be given a functional-genealogical explanation of its social role. Using the neopragmatists&rsquo; own resources, I identify one discourse for which this cannot be done: the explanatory strategy itself, which cannot tell its story without employing the vocabulary it is trying to explain.</p>
+      </li>
+      <li>
+        <div class="entry-head">
+          <span class="entry-title">The Grounding Problem for Stance Voluntarism</span>
+        </div>
+        <p class="gloss">Stance voluntarism holds that realist and empiricist stances are alike rationally permissible, on the strength of a thin coherence norm. I ask what justifies that norm and from where, and argue that the most viable grounding commits the voluntarist to epistemic instrumentalism — a contested thesis assumed rather than defended.</p>
+      </li>
+    </ul>
+
+    <h3>In progress</h3>
+    <ul class="entries">
+      <li>
+        <div class="entry-head">
+          <span class="entry-title">The Zetetic Role of Mathematics in Science</span>
+        </div>
+        <p class="gloss">Mathematics contributes to inquiry prior to any explanatory payoff: it can constitute phenomena as objects of inquiry in the first place, individuating observations as instances of known structures and rescuing apparent noise as something worth investigating.</p>
+      </li>
+      <li>
+        <div class="entry-head">
+          <span class="entry-title">Local realisms and the historico-pragmatic method</span>
+        </div>
+        <p class="gloss">Examining episodes in which theoretical commitment or restraint demonstrably drove scientific progress, and arguing on practical grounds for local realisms and anti-realisms within particular domains.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section wrap" id="teaching">
+  <div class="label mono"><span>Teaching</span></div>
+  <div>
+    <h2>Teaching</h2>
+    <p>I want students to leave my courses with a sense of philosophy&rsquo;s importance to their lives. Insofar as philosophy is the critical evaluation of one&rsquo;s fundamental concepts and values, and since those values inform everything one believes and does, philosophy is a way of becoming more fully oneself.</p>
+    <p>Two commitments shape how I run a classroom. The first is that philosophy is a conversation, which means small-group discussion, low-stakes entry points, and a room where a question is worth asking regardless of how far afield it seems. The second is that philosophy has been done well by people from every culture and demographic, and my courses are built to reflect that.</p>
+
+    <h3>Courses taught as instructor of record</h3>
+    <ul class="courses">
+      <li><span class="course-name">Engineering Ethics for a Just and Diverse World</span><span class="terms mono">AU24 &middot; AU25 &middot; SP26 &middot; AU26</span></li>
+      <li><span class="course-name">Engineering Ethics</span><span class="terms mono">SU22 &middot; SP23 &middot; SU23 &middot; SP26</span></li>
+      <li><span class="course-name">Death and the Meaning of Life</span><span class="terms mono">AU25</span></li>
+      <li><span class="course-name">Contemporary Social and Moral Problems</span><span class="terms mono">SU25</span></li>
+      <li><span class="course-name">Introduction to the Philosophy of Science</span><span class="terms mono">SP25</span></li>
+      <li><span class="course-name">Introduction to Philosophy</span><span class="terms mono">AU22 &middot; SP24</span></li>
+      <li><span class="course-name">Introduction to Logic</span><span class="terms mono">SU24</span></li>
+      <li><span class="course-name">Logic and Legal Reasoning</span><span class="terms mono">AU23</span></li>
+    </ul>
+    <p class="prepared">I am also prepared to teach courses in Metaphysics, Symbolic Logic, History of Analytic Philosophy, and Professional Ethics.</p>
+
+    <p style="margin-top:2rem"><a href="files/TeachingPortfolio_2026.pdf">Full teaching portfolio</a> — teaching statement, complete course record, quantitative and qualitative feedback, pedagogical training, and sample syllabi.</p>
+  </div>
+</section>
+
+<section class="section wrap" id="documents">
+  <div class="label mono"><span>Documents</span></div>
+  <div>
+    <h2>Documents</h2>
+    <ul class="docs">
+      <li><a href="files/CV_Jason_DeWitt.pdf">Curriculum vitae</a></li>
+      <li><a href="files/Research_Statement_DeWitt.pdf">Research statement</a></li>
+      <li><a href="files/TeachingPortfolio_2026.pdf">Teaching portfolio</a></li>
+    </ul>
+
+    <h3>Sample syllabi</h3>
+    <ul class="docs">
+      <li><a href="files/syllabus-philsci-sp25.pdf">Introduction to the Philosophy of Science</a><span class="note mono">SP25</span></li>
+      <li><a href="files/syllabus-intro-phil-sp24.pdf">Introduction to Philosophy</a><span class="note mono">SP24</span></li>
+      <li><a href="files/syllabus-eng-ethics-jedw-au25.pdf">Engineering Ethics for a Just and Diverse World</a><span class="note mono">AU25</span></li>
+      <li><a href="files/syllabus-contemp-problems-su25.pdf">Contemporary Social and Moral Problems</a><span class="note mono">SU25</span></li>
+      <li><a href="files/syllabus-death-meaning-au25.pdf">Death and the Meaning of Life</a><span class="note mono">AU25</span></li>
+      <li><a href="files/syllabus-intro-logic-su24.pdf">Introduction to Logic</a><span class="note mono">SU24</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section wrap" id="contact">
+  <div class="label mono"><span>Contact</span></div>
+  <div>
+    <h2>Contact</h2>
+    <div class="contact-grid">
+      <div>
+        <span class="mono">Email</span>
+        <a href="mailto:dewitt.197@osu.edu">dewitt.197@osu.edu</a>
+      </div>
+      <div>
+        <span class="mono">Office</span>
+        <address>
+          342 University Hall<br>
+          230 N. Oval Mall<br>
+          Columbus, OH 43210
+        </address>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <span class="mono">&copy; 2026 Jason DeWitt</span>
+</footer>
+
+</body>
+</html>
